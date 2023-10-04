@@ -4,15 +4,20 @@
   "description": "a blog backend",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "author": "Aditya verma",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.5.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "handlebars": "^4.7.8",
+    "hbs": "^4.2.0",
     "lodash": "^4.17.21",
     "mongoose": "^7.5.3",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "request-promise": "^4.2.6"
   }
 }
