@@ -55,6 +55,17 @@ function analyze(blogs) {
   ];
 }
 
+router.get("/blogs", async (req, res) => {
+
+  const blogs = req.data.blogs;
+
+  if(blogs)
+      res.status(200).json({ blogs });
+  else 
+      res.status(400).json({ error : "Couldnot get memoized data" });
+      
+});
+
 router.get("/blog-stats", async (req, res) => {
 
   const blogs = req.data.blogs;

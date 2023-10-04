@@ -4,18 +4,34 @@ dotenv.config();
 const express = require("express");
 const axios = require("axios");
 
-//  importing lodash
-// Load the full build.
+//  importing lodash and handlebars
 var lodash = require("lodash");
+const hbs = require('hbs');
 
-//  importing Routes
-const apiRoutes = require("./routes/apiRoutes");
- 
+hbs.registerPartials(__dirname + '/views/partials');
+
+
+// creating app instance-----------------------------------------------------------------------------------------------
 const app = express();
 app.use(express.json()); // to accept json data
 app.use(express.urlencoded({ extended: false }));
 
-//  middleware for fetching data
+// Serve static files (e.g., CSS and JavaScript) from the 'public' directory
+app.use(express.static(__dirname + '/public'));
+
+
+
+
+// --------------------------------------------------------------------------------------------------------
+//  importing Routes
+const apiRoutes = require("./routes/apiRoutes");
+ 
+
+
+
+
+
+//  middleware for fetching data ----------------------------------------------------------------------------------------------------------------------
 
 const fetchDataMiddleware = async (req, res, next) => {
   try {
@@ -37,18 +53,20 @@ const fetchDataMiddleware = async (req, res, next) => {
   }
 };
 
-//  using middleware to fetch data in all routes 
+//  using middleware to fetch data in all routes -----------------------------------------------------------------------------------------------------------------------
 app.use(fetchDataMiddleware); 
 
 
 
-//  default home route
+//  default home route --------------------------------------------------------------------------------------------------
 app.get("/", async (req, res) => {
-  const data = req.data.blogs[0];
-  res.status(200).json(data);
+   res.render('index.hbs');
 });
 
-//  creating routes
+
+
+
+//  creating api routes--------------------------------------------------------------------------------------------
 app.use("/api", apiRoutes);
 
 app.listen(process.env.PORT, () => {
